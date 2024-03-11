@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
-import FeatherIcon from "feather-icons-react";
 
 const InputContainer = styled.div`
   position: relative;
@@ -8,48 +7,41 @@ const InputContainer = styled.div`
   width: 100%;
 `;
 
-const InputField = styled.input`
-  outline: none;
-  padding: 10px 40px;
-  border-radius: 20px;
-  border: 2px solid #ccc;
-  font-size: 16px;
+const Input = styled.input`
+  margin: 10px 0;
+  padding: 0.5rem 0.75rem;
   width: 100%;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  background-color: #eee;
+  transition: border-color 0.3s ease;
 
   &:hover {
-    border-color: #888;
+    border-color: #387adf;
   }
 
   &:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    border-color: #387adf;
+  }
+
+  &.error {
+    border-color: #d32f2f;
   }
 `;
 
-const IconContainer = styled.div`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 10px;
-  cursor: pointer;
-`;
-
-const Icon = styled(FeatherIcon)`
-  width: 18px;
-  height: 18px;
-`;
-
-const InputFieldWithIcon = ({ icon, inputType, placeholder, onIconClick }) => {
+const InputField = ({ type, value, onChange, placeholder }) => {
   return (
     <InputContainer>
-      <InputField type={inputType} placeholder={placeholder} />
-      {icon && (
-        <IconContainer onClick={onIconClick}>
-          <Icon icon={icon} size={18} />
-        </IconContainer>
-      )}
+      <Input
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+      />
     </InputContainer>
   );
 };
 
-export default InputFieldWithIcon;
+export default InputField;

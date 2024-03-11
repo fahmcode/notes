@@ -1,15 +1,18 @@
 /* eslint-disable react/prop-types */
-const Logo = ({ text }) => {
-  const styles = {
-    logo: {
-      marginBottom: "20px",
-      fontSize: "24px",
-      fontWeight: "bold",
-      color: "#333",
-    },
-  };
+import styled from "styled-components";
 
-  return <div style={styles.logo}>{text}</div>;
+const Logo = ({ text }) => {
+  return <StyledLogo>{text}</StyledLogo>;
 };
 
+const StyledLogo = styled.div`
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+  font-weight: bold;
+
+  @media (max-width: 600px) {
+    display: none;
+  }
+`;
 export default Logo;

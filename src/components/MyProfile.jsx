@@ -1,12 +1,9 @@
-import { useState, useRef, useEffect } from "react";
+/* eslint-disable react/prop-types */
 import styled from "styled-components";
-import NavItem from "./NavItem";
-import ProfileImage from "../assets/bg3.jpg";
-import FeatherIcon from "feather-icons-react";
+import ProfileImage from "../assets/avatar.jpg";
+import { NavLink } from "react-router-dom";
 
 const ProfileContainer = styled.li`
-  cursor: pointer;
-  position: relative;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -24,26 +21,19 @@ const ProfileContainer = styled.li`
     background-color: #e2dfd2;
     font-weight: bold;
   }
+
+  border: 1px solid #ccc;
   border-radius: 0.75rem;
+
+  @media (max-width: 600px) {
+    border-radius: 2rem;
+  }
 `;
 
 const StyledImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-`;
-
-const HiddenDiv = styled.div`
-  display: ${(props) => (props.isHidden ? "none" : "flex")};
-  position: absolute;
-  width: 100%;
-  bottom: calc(100% + 5px);
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 0.75rem;
-  background-color: #e0e0e0;
-  flex-direction: column;
-  gap: 5px;
 `;
 
 const ImageContainer = styled.div`
@@ -53,61 +43,43 @@ const ImageContainer = styled.div`
   border-radius: 50%;
   border: 2px solid #ccc;
   margin: 5px;
+  @media (max-width: 600px) {
+    margin: 0;
+  }
 `;
 
 const StyledSpan = styled.span`
   font-weight: 600;
+
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 
-const IconedButton = styled.button`
-  outline: none;
-  padding: 0.75rem 1rem;
-  border-radius: 0.75rem;
-  border: none;
-  background-color: #e0e0e0;
+const StyledNavLink = styled(NavLink)`
   display: flex;
   align-items: center;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
   color: inherit;
-  padding: 0.75rem;
-  cursor: pointer;
-  border-radius: 0.75rem;
+
+  @media (max-width: 600px) {
+    span {
+      display: none;
+    }
+  }
 `;
 
-const MyProfile = () => {
-  const [isHidden, setIsHidden] = useState(true);
-  const profileRef = useRef(null);
-
-  const toggleVisibility = () => {
-    setIsHidden(!isHidden);
-  };
-
-  const handleClickOutside = (event) => {
-    if (profileRef.current && !profileRef.current.contains(event.target)) {
-      setIsHidden(true);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("click", handleClickOutside);
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, []);
-
+const MyProfile = ({ user }) => {
   return (
-    <ProfileContainer ref={profileRef} onClick={toggleVisibility}>
-      <ImageContainer>
-        <StyledImage src={ProfileImage} alt="User Profile" />
-      </ImageContainer>
-      <StyledSpan>Fahm Aliyi</StyledSpan>
-
-      <HiddenDiv isHidden={isHidden}>
-        <NavItem link={{ icon: "user", label: "Profile", path: "/profile" }} />
-        <IconedButton>
-          <FeatherIcon icon="log-out" size="20" />
-          <span style={{ marginLeft: 10, fontSize: 16 }}>Logout</span>
-        </IconedButton>
-      </HiddenDiv>
+    <ProfileContainer>
+      <StyledNavLink to="/profile">
+        <ImageContainer>
+          <StyledImage src={ProfileImage} alt="Profile" />
+        </ImageContainer>
+        <StyledSpan>{user.username}</StyledSpan>
+      </StyledNavLink>
     </ProfileContainer>
   );
 };

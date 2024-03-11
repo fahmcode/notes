@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Routes, Route, Outlet } from "react-router-dom";
 
 import Home from "../routes/Home";
@@ -5,31 +6,35 @@ import Notes from "../routes/Notes";
 import Saved from "../routes/Saved";
 import Folders from "../routes/Folders";
 import Profile from "../routes/Profile";
-import Settings from "../routes/Settings";
 import Favorites from "../routes/Favorites";
+import styled from "styled-components";
 
-const styles = {
-  main: {
-    flex: 1,
-    padding: "20px",
-  },
-};
-
-const Main = () => {
+const Main = ({ user }) => {
   return (
-    <div style={styles.main}>
+    <StyledMain>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/">
+          <Route index element={<Home />} />
+          <Route path="/home" element={<Home />} />
+        </Route>
         <Route path="/notes" element={<Notes />} />
         <Route path="/folders" element={<Folders />} />
         <Route path="/favorites" element={<Favorites />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<Profile user={user} />} />
         <Route path="/saved" element={<Saved />} />
       </Routes>
       <Outlet />
-    </div>
+    </StyledMain>
   );
 };
+
+const StyledMain = styled.main`
+  flex: 1;
+  overflow: auto;
+
+  @media (max-width: 600px) {
+    margin-bottom: 60px;
+  }
+`;
 
 export default Main;

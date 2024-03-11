@@ -34,6 +34,12 @@ const StyledNavLink = styled(NavLink)`
     background-color: #e2dfd2;
     font-weight: bold;
   }
+
+  @media (max-width: 600px) {
+    span {
+      display: none;
+    }
+  }
 `;
 
 const NavItem = ({ link }) => {

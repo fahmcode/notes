@@ -1,0 +1,8 @@
+{
+    "users": [
+        {"id": 1, "username": "fahm", "password": "fahm"}
+    ],
+    "notes": [
+    {"id":"fahm", "title": "Note from fahm", "userId": 1}
+    ]
+}

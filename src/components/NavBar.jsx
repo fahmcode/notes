@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import styled from "styled-components";
 import NavItem from "./NavItem";
 import MyProfile from "./MyProfile";
@@ -10,23 +11,37 @@ const NavbarContainer = styled.nav`
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  @media (max-width: 600px) {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0;
+    gap: 0;
+  }
 `;
 
 const NavItems = styled.ul`
   height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  @media (max-width: 600px) {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 0;
+  }
 `;
 
-const NavBar = () => {
+const NavBar = ({ onLogout, user }) => {
   const links = [
     { icon: "home", label: "Home", path: "/" },
     { icon: "book", label: "Notes", path: "/notes" },
-    { icon: "folder", label: "Folders", path: "/folders" },
     { icon: "star", label: "Favorites", path: "/favorites" },
-    { icon: "bookmark", label: "Saved", path: "/saved" },
-    { icon: "settings", label: "Settings", path: "/settings" },
+    { icon: "folder", label: "Folders", path: "/folders" },
   ];
 
   return (
@@ -35,7 +50,7 @@ const NavBar = () => {
         {links.map((link) => (
           <NavItem key={link.label} link={link} />
         ))}
-        <MyProfile />
+        <MyProfile onLogout={onLogout} user={user} />
       </NavItems>
     </NavbarContainer>
   );
