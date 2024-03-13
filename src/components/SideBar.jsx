@@ -11,6 +11,7 @@ const StyledSideBar = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
+  position: relative;
 
   @media (max-width: 600px) {
     position: fixed;

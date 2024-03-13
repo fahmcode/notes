@@ -8,7 +8,7 @@ const useAuth = (baseUrl) => {
   const login = async (username, password) => {
     try {
       const response = await axios.post(
-        `${baseUrl}/auth/signin`,
+        `${baseUrl}/api/auth/login`,
         { username, password },
         { headers: { "Content-Type": "application/json" } }
       );
@@ -17,11 +17,11 @@ const useAuth = (baseUrl) => {
         throw new Error("Login failed");
       }
 
-      const { data } = response.data;
+      const data = response.data;
       setIsLoggedIn(true);
       setUser(user);
       setError(null);
-      localStorage.setItem("userData", data);
+      localStorage.setItem("userData", JSON.stringify(data));
     } catch (err) {
       setError(err.message);
     }
@@ -29,7 +29,7 @@ const useAuth = (baseUrl) => {
 
   const logout = async () => {
     try {
-      await fetch(`${baseUrl}/auth/logout`);
+      await fetch(`${baseUrl}//api/auth/logout`);
       localStorage.removeItem("userData");
       setIsLoggedIn(false);
       setUser(null);
@@ -40,11 +40,16 @@ const useAuth = (baseUrl) => {
   };
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("userData"));
-    setIsLoggedIn(Boolean(user));
+    const checkLogin = async () => {
+      const user = await JSON.parse(localStorage.getItem("userData"));
+      setIsLoggedIn(Boolean(user));
+      setUser(user);
+    };
+
+    checkLogin();
   }, []);
 
-  return { isLoggedIn, user, error, login, logout };
+  return { isLoggedIn, user, login, logout, error };
 };
 
 export default useAuth;

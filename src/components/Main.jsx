@@ -3,8 +3,7 @@ import { Routes, Route, Outlet } from "react-router-dom";
 
 import Home from "../routes/Home";
 import Notes from "../routes/Notes";
-import Saved from "../routes/Saved";
-import Folders from "../routes/Folders";
+import Notifications from "../routes/Notifications";
 import Profile from "../routes/Profile";
 import Favorites from "../routes/Favorites";
 import styled from "styled-components";
@@ -18,10 +17,9 @@ const Main = ({ user }) => {
           <Route path="/home" element={<Home />} />
         </Route>
         <Route path="/notes" element={<Notes />} />
-        <Route path="/folders" element={<Folders />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/profile" element={<Profile user={user} />} />
-        <Route path="/saved" element={<Saved />} />
+        <Route path="/notifications" element={<Notifications />} />
       </Routes>
       <Outlet />
     </StyledMain>

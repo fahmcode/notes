@@ -41,7 +41,7 @@ const NavBar = ({ onLogout, user }) => {
     { icon: "home", label: "Home", path: "/" },
     { icon: "book", label: "Notes", path: "/notes" },
     { icon: "star", label: "Favorites", path: "/favorites" },
-    { icon: "folder", label: "Folders", path: "/folders" },
+    { icon: "bell", label: "Notifications", path: "/notifications" },
   ];
 
   return (
